@@ -41,11 +41,12 @@ export function ServiceFlipCard({
 
   return (
     <motion.article
+      layout={false}
       variants={variants}
-      className="relative group cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg transition-all duration-300 hover:shadow-xl [perspective:1400px]"
+      className="relative group cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-lg transition-[transform,box-shadow,border-color] duration-300 hover:shadow-xl [perspective:1400px]"
       style={
         {
-          willChange: "transform, opacity, filter",
+          willChange: "transform, opacity",
           "--x": "50%",
           "--y": "50%"
         } as CSSProperties

@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 const ENERGY_PATHS = [
@@ -40,24 +41,25 @@ const ENERGY_LAYERS = [
   }
 ] as const;
 
-export function EnergyMesh() {
-  const prefersReducedMotion = useReducedMotion();
+function EnergyMeshBase() {
+  const prefersReducedMotion = Boolean(useReducedMotion());
   const { scrollYProgress } = useScroll();
 
   const scrollDriftUp = useTransform(scrollYProgress, [0, 1], [0, -90]);
   const scrollDriftDown = useTransform(scrollYProgress, [0, 1], [0, 65]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-35 [mix-blend-mode:normal]">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-28 md:opacity-35 [mix-blend-mode:normal]">
       <motion.svg
         aria-hidden
         className="absolute inset-0 h-full w-full"
         viewBox="0 0 2000 1200"
         preserveAspectRatio="none"
+        style={{ willChange: "transform, opacity", transform: "translateZ(0)" }}
       >
         <defs>
           <filter id="energy-mesh-glow" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="7.2" result="blur" />
+            <feGaussianBlur stdDeviation="6.2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -70,9 +72,14 @@ export function EnergyMesh() {
             key={`energy-layer-${layerIndex}`}
             style={
               prefersReducedMotion
-                ? undefined
+                ? {
+                    willChange: "transform",
+                    transform: "translateZ(0)"
+                  }
                 : {
-                    y: layerIndex % 2 === 0 ? scrollDriftUp : scrollDriftDown
+                    y: layerIndex % 2 === 0 ? scrollDriftUp : scrollDriftDown,
+                    willChange: "transform",
+                    transform: "translateZ(0)"
                   }
             }
           >
@@ -90,6 +97,7 @@ export function EnergyMesh() {
                 repeat: Number.POSITIVE_INFINITY,
                 ease: "easeInOut"
               }}
+              style={{ willChange: "transform", transform: "translateZ(0)" }}
             >
               {ENERGY_PATHS.map((path, pathIndex) => (
                 <motion.path
@@ -117,6 +125,7 @@ export function EnergyMesh() {
                     ease: prefersReducedMotion ? "easeOut" : "linear",
                     delay: pathIndex * 0.35
                   }}
+                  style={{ willChange: "opacity, stroke-dashoffset" }}
                 />
               ))}
             </motion.g>
@@ -126,3 +135,6 @@ export function EnergyMesh() {
     </div>
   );
 }
+
+export const EnergyMesh = memo(EnergyMeshBase);
+EnergyMesh.displayName = "EnergyMesh";

@@ -101,7 +101,7 @@ export function ServicesSection() {
       className="relative -mt-[1px] overflow-hidden bg-[#F8FAFC] py-28 md:py-36"
     >
       <video
-        className="absolute inset-0 z-0 h-full w-full object-cover opacity-22"
+        className="absolute inset-0 z-0 h-full w-full object-cover opacity-22 [transform:translateZ(0)]"
         autoPlay
         muted
         loop
@@ -133,7 +133,8 @@ export function ServicesSection() {
               left: particle.left,
               top: particle.top,
               width: particle.size,
-              height: particle.size
+              height: particle.size,
+              willChange: "transform, opacity"
             }}
             animate={
               prefersReducedMotion
@@ -162,6 +163,7 @@ export function ServicesSection() {
             whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
             viewport={{ once: true, amount: 0.24 }}
             transition={{ duration: 1.1, delay: 0.25, ease: transitionEase }}
+            style={{ willChange: "transform, opacity" }}
           >
             <LiquidText>Engineering and study services for modern utility and industrial grids.</LiquidText>
           </motion.h2>
@@ -171,6 +173,7 @@ export function ServicesSection() {
             whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
             viewport={{ once: true, amount: 0.24 }}
             transition={{ duration: 1.1, delay: 0.25, ease: transitionEase }}
+            style={{ willChange: "transform, opacity" }}
           >
             <LiquidText className="block w-full">
               We deliver planning, interconnection, compliance, and performance assessments that combine
@@ -185,6 +188,7 @@ export function ServicesSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
+          style={{ willChange: "transform, opacity" }}
         >
           {services.map((service) => (
             <ServiceFlipCard

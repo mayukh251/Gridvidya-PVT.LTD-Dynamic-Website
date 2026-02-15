@@ -1,12 +1,13 @@
 "use client";
 
+import { memo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 type CorporateDividerProps = {
   className?: string;
 };
 
-export function CorporateDivider({ className = "" }: CorporateDividerProps) {
+function CorporateDividerBase({ className = "" }: CorporateDividerProps) {
   const prefersReducedMotion = Boolean(useReducedMotion());
 
   return (
@@ -15,6 +16,7 @@ export function CorporateDivider({ className = "" }: CorporateDividerProps) {
         className="absolute inset-0 w-full h-full pointer-events-none"
         viewBox="0 0 1000 200"
         preserveAspectRatio="none"
+        style={{ willChange: "transform, opacity", transform: "translateZ(0)" }}
       >
         <defs>
           <linearGradient id="dividerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -23,7 +25,7 @@ export function CorporateDivider({ className = "" }: CorporateDividerProps) {
             <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
           <filter id="dividerGlow">
-            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feGaussianBlur stdDeviation="1.6" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -43,6 +45,7 @@ export function CorporateDivider({ className = "" }: CorporateDividerProps) {
             repeat: Number.POSITIVE_INFINITY,
             ease: "easeInOut"
           }}
+          style={{ willChange: "opacity, transform" }}
         >
           <motion.path
             d="M0 100 Q 150 90 300 100 T 600 100 T 1000 100"
@@ -83,4 +86,6 @@ export function CorporateDivider({ className = "" }: CorporateDividerProps) {
   );
 }
 
+export const CorporateDivider = memo(CorporateDividerBase);
+CorporateDivider.displayName = "CorporateDivider";
 export default CorporateDivider;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef } from "react";
+import { memo, useEffect, useId, useRef } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import LiquidText from "@/components/ui/LiquidText";
 import { primaryBlue, secondaryBlue } from "@/styles/brandTheme";
@@ -13,7 +13,7 @@ const glowSpring = {
   mass: 0.6
 };
 
-export function HeroSection() {
+function HeroSectionBase() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = useReducedMotion();
   const electricId = useId().replace(/:/g, "");
@@ -93,12 +93,14 @@ export function HeroSection() {
 
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[90px]"
+        className="pointer-events-none absolute h-[34rem] w-[34rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[78px] md:blur-[90px]"
         style={
           prefersReducedMotion
             ? {
                 left: "50%",
                 top: "45%",
+                willChange: "opacity",
+                transform: "translateZ(0)",
                 background:
                   "radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, rgba(79, 70, 229, 0.14) 34%, rgba(255, 255, 255, 0) 72%)"
               }
@@ -106,6 +108,8 @@ export function HeroSection() {
                 x: smoothGlowX,
                 y: smoothGlowY,
                 opacity: smoothGlowOpacity,
+                willChange: "transform, opacity",
+                transform: "translateZ(0)",
                 background:
                   "radial-gradient(circle, rgba(99, 102, 241, 0.24) 0%, rgba(79, 70, 229, 0.16) 36%, rgba(255, 255, 255, 0) 74%)"
               }
@@ -156,7 +160,9 @@ export function HeroSection() {
                     className="absolute inset-0 w-full h-full pointer-events-none"
                     style={{
                       zIndex: 30,
-                      filter: "drop-shadow(0 0 6px rgba(0, 234, 255, 0.24))"
+                      filter: "drop-shadow(0 0 4px rgba(0, 234, 255, 0.2))",
+                      willChange: "transform",
+                      transform: "translateZ(0)"
                     }}
                     viewBox="0 0 1000 200"
                     preserveAspectRatio="none"
@@ -169,7 +175,7 @@ export function HeroSection() {
                         <stop offset="100%" stopColor="#00eaff" />
                       </linearGradient>
                       <filter id={glowId}>
-                        <feGaussianBlur stdDeviation="3" result="coloredBlur" />
+                        <feGaussianBlur stdDeviation="2.4" result="coloredBlur" />
                         <feMerge>
                           <feMergeNode in="coloredBlur" />
                           <feMergeNode in="SourceGraphic" />
@@ -177,7 +183,7 @@ export function HeroSection() {
                       </filter>
                     </defs>
 
-                    <g filter={`url(#${glowId})`}>
+                    <g filter={`url(#${glowId})`} style={{ willChange: "opacity, transform", transform: "translateZ(0)" }}>
                       <motion.path
                         d="M0 100 Q 150 56 300 100 T 600 100 T 850 100 T 1000 100"
                         stroke={`url(#${gradientId})`}
@@ -185,7 +191,7 @@ export function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                         strokeDasharray="8 6"
-                        animate={{ strokeDashoffset: [0, -44] }}
+                        animate={prefersReducedMotion ? undefined : { strokeDashoffset: [0, -44] }}
                         transition={{ repeat: Infinity, duration: 0.9, ease: "linear" }}
                         opacity={0.92}
                       />
@@ -196,7 +202,7 @@ export function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                         strokeDasharray="8 6"
-                        animate={{ strokeDashoffset: [0, -44] }}
+                        animate={prefersReducedMotion ? undefined : { strokeDashoffset: [0, -44] }}
                         transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
                         opacity={0.8}
                       />
@@ -207,7 +213,7 @@ export function HeroSection() {
                         strokeLinecap="round"
                         fill="none"
                         strokeDasharray="8 6"
-                        animate={{ strokeDashoffset: [0, -44] }}
+                        animate={prefersReducedMotion ? undefined : { strokeDashoffset: [0, -44] }}
                         transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
                         opacity={0.74}
                       />
@@ -242,6 +248,7 @@ export function HeroSection() {
                 }}
                 whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.04 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                style={{ willChange: "transform, box-shadow", transform: "translateZ(0)" }}
               >
                 <span className="relative z-10">Start Consultation</span>
                 <span className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
@@ -261,6 +268,7 @@ export function HeroSection() {
                 }}
                 whileHover={prefersReducedMotion ? undefined : { y: -6, scale: 1.04 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                style={{ willChange: "transform, box-shadow", transform: "translateZ(0)" }}
               >
                 <span className="relative z-10">Explore Services</span>
                 <span className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
@@ -278,3 +286,6 @@ export function HeroSection() {
     </section>
   );
 }
+
+export const HeroSection = memo(HeroSectionBase);
+HeroSection.displayName = "HeroSection";

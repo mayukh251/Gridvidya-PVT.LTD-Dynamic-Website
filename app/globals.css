@@ -66,12 +66,12 @@ section {
   }
 
   .glass-panel {
-    @apply rounded-2xl border border-slate-200 bg-white backdrop-blur-lg shadow-lg shadow-indigo-100 transition-transform duration-300;
+    @apply rounded-2xl border border-slate-200 bg-white backdrop-blur-md shadow-lg shadow-indigo-100 transition-transform duration-300;
     background: rgba(255, 255, 255, 0.75);
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full border border-indigo-700 px-7 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-all duration-300;
+    @apply inline-flex items-center justify-center rounded-full border border-indigo-700 px-7 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white transition-[transform,box-shadow,background-color,border-color] duration-300;
     background: linear-gradient(120deg, #4f46e5 0%, #6366f1 100%);
     box-shadow: 0 10px 24px rgba(79, 70, 229, 0.2);
   }
@@ -82,7 +82,7 @@ section {
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-indigo-200 bg-white px-7 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-indigo-700 transition-all duration-300 shadow-lg shadow-indigo-100;
+    @apply inline-flex items-center justify-center rounded-full border border-indigo-200 bg-white px-7 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-indigo-700 transition-[transform,box-shadow,color,border-color,background-color] duration-300 shadow-lg shadow-indigo-100;
   }
 
   .btn-secondary:hover {
@@ -103,7 +103,7 @@ section {
   }
 
   .glass-corporate {
-    @apply rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-lg shadow-lg shadow-indigo-100;
+    @apply rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-md shadow-lg shadow-indigo-100;
   }
 
   .soft-border-glow {

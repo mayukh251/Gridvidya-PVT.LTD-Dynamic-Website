@@ -143,11 +143,11 @@ export default function Home() {
       <div className="pointer-events-none fixed inset-0 -z-30">
         <motion.div
           style={prefersReducedMotion ? undefined : { y: topOrbY }}
-          className="absolute -top-36 left-[8%] h-[28rem] w-[28rem] rounded-full bg-indigo-300/25 blur-[150px]"
+          className="absolute -top-36 left-[8%] h-[28rem] w-[28rem] rounded-full bg-indigo-300/25 blur-[120px] md:blur-[150px] [will-change:transform]"
         />
         <motion.div
           style={prefersReducedMotion ? undefined : { y: bottomOrbY }}
-          className="absolute bottom-[-15rem] right-[4%] h-[30rem] w-[30rem] rounded-full bg-sky-200/30 blur-[165px]"
+          className="absolute bottom-[-15rem] right-[4%] h-[30rem] w-[30rem] rounded-full bg-sky-200/30 blur-[135px] md:blur-[165px] [will-change:transform]"
         />
         <div className="grid-overlay absolute inset-0 opacity-20" />
       </div>
@@ -187,6 +187,7 @@ export default function Home() {
               return (
                 <motion.div
                   key={technology.title}
+                  layout={false}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.22 }}
@@ -203,8 +204,8 @@ export default function Home() {
                           }
                         }
                   }
-                  className={`group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-7 backdrop-blur-md shadow-[0_10px_40px_rgba(15,23,42,0.08)] transition-all duration-300 ease-out hover:shadow-[0_15px_45px_rgba(99,102,241,0.15)] ${isFeatured ? "md:col-span-2" : ""}`}
-                  style={{ "--x": "50%", "--y": "50%" } as CSSProperties}
+                  className={`group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-7 backdrop-blur-md shadow-[0_10px_40px_rgba(15,23,42,0.08)] transition-[transform,box-shadow,opacity] duration-300 ease-out hover:shadow-[0_15px_45px_rgba(99,102,241,0.15)] ${isFeatured ? "md:col-span-2" : ""}`}
+                  style={{ "--x": "50%", "--y": "50%", willChange: "transform, opacity" } as CSSProperties}
                   onMouseMove={(event) => {
                     const rect = event.currentTarget.getBoundingClientRect();
                     const x = event.clientX - rect.left;
@@ -260,6 +261,7 @@ export default function Home() {
                 return (
                   <motion.div
                     key={industry.title}
+                    layout={false}
                     initial={{ opacity: 0, y: 22 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
@@ -276,8 +278,8 @@ export default function Home() {
                             }
                           }
                     }
-                    className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-6 backdrop-blur-md shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-all duration-300 ease-out hover:shadow-[0_12px_35px_rgba(99,102,241,0.12)]"
-                    style={{ "--x": "50%", "--y": "50%" } as CSSProperties}
+                    className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-6 backdrop-blur-md shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-[transform,box-shadow,opacity] duration-300 ease-out hover:shadow-[0_12px_35px_rgba(99,102,241,0.12)]"
+                    style={{ "--x": "50%", "--y": "50%", willChange: "transform, opacity" } as CSSProperties}
                     onMouseMove={(event) => {
                       const rect = event.currentTarget.getBoundingClientRect();
                       const x = event.clientX - rect.left;
@@ -311,16 +313,16 @@ export default function Home() {
 
       <section id="contact" className="bg-white pb-24 pt-20 md:pb-28">
         <div className="section-shell">
-          <motion.div
-            initial={{ opacity: 0, y: 26 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.78, ease: transitionEase }}
-            className="glass-corporate soft-border-glow relative overflow-hidden rounded-[20px] p-8 md:p-12"
-            style={{ "--x": "50%", "--y": "50%" } as CSSProperties}
-            onMouseMove={(event) => {
-              const rect = event.currentTarget.getBoundingClientRect();
-              const x = event.clientX - rect.left;
+            <motion.div
+              initial={{ opacity: 0, y: 26 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.78, ease: transitionEase }}
+              className="glass-corporate soft-border-glow relative overflow-hidden rounded-[20px] p-8 md:p-12"
+              style={{ "--x": "50%", "--y": "50%", willChange: "transform, opacity" } as CSSProperties}
+              onMouseMove={(event) => {
+                const rect = event.currentTarget.getBoundingClientRect();
+                const x = event.clientX - rect.left;
               const y = event.clientY - rect.top;
               event.currentTarget.style.setProperty("--x", `${x}px`);
               event.currentTarget.style.setProperty("--y", `${y}px`);
@@ -349,7 +351,7 @@ export default function Home() {
                   ease: "easeInOut"
                 }}
                 style={{
-                  filter: "drop-shadow(0 0 8px rgba(129, 140, 248, 0.24))"
+                  filter: "drop-shadow(0 0 6px rgba(129, 140, 248, 0.22))"
                 }}
               />
               <defs>
@@ -397,7 +399,7 @@ export default function Home() {
                   type="text"
                   required
                   placeholder="Full name"
-                  className="input-glass focus:outline-none focus:ring-0 relative transition-all duration-300"
+                  className="input-glass focus:outline-none focus:ring-0 relative transition-[box-shadow,border-color,background-color] duration-300"
                   onFocus={handleElectricFocus}
                   onBlur={handleElectricBlur}
                 />
@@ -413,7 +415,7 @@ export default function Home() {
                       type="email"
                       required
                       placeholder="Business email"
-                      className="input-glass focus:outline-none focus:ring-0 relative transition-all duration-300"
+                      className="input-glass focus:outline-none focus:ring-0 relative transition-[box-shadow,border-color,background-color] duration-300"
                       onFocus={handleElectricFocus}
                       onBlur={handleElectricBlur}
                     />
@@ -427,7 +429,7 @@ export default function Home() {
                       name="company"
                       type="text"
                       placeholder="Organization"
-                      className="input-glass focus:outline-none focus:ring-0 relative transition-all duration-300"
+                      className="input-glass focus:outline-none focus:ring-0 relative transition-[box-shadow,border-color,background-color] duration-300"
                       onFocus={handleElectricFocus}
                       onBlur={handleElectricBlur}
                     />
@@ -442,7 +444,7 @@ export default function Home() {
                   name="message"
                   rows={5}
                   placeholder="Project goals, grid scope, and timeline"
-                  className="input-glass resize-none focus:outline-none focus:ring-0 relative transition-all duration-300"
+                  className="input-glass resize-none focus:outline-none focus:ring-0 relative transition-[box-shadow,border-color,background-color] duration-300"
                   onFocus={handleElectricFocus}
                   onBlur={handleElectricBlur}
                 />
