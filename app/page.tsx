@@ -190,21 +190,10 @@ export default function Home() {
                   layout={false}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.22 }}
+                  viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.72, delay: index * 0.09, ease: transitionEase }}
-                  whileHover={
-                    prefersReducedMotion
-                      ? undefined
-                      : {
-                          y: -6,
-                          transition: {
-                            type: "tween",
-                            duration: 0.25,
-                            ease: "easeOut"
-                          }
-                        }
-                  }
-                  className={`group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-7 backdrop-blur-md shadow-[0_10px_40px_rgba(15,23,42,0.08)] transition-[transform,box-shadow,opacity] duration-300 ease-out hover:shadow-[0_15px_45px_rgba(99,102,241,0.15)] ${isFeatured ? "md:col-span-2" : ""}`}
+                  whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+                  className={`${isFeatured ? "md:col-span-2" : ""}`}
                   style={{ "--x": "50%", "--y": "50%", willChange: "transform, opacity" } as CSSProperties}
                   onMouseMove={(event) => {
                     const rect = event.currentTarget.getBoundingClientRect();
@@ -214,24 +203,26 @@ export default function Home() {
                     event.currentTarget.style.setProperty("--y", `${y}px`);
                   }}
                 >
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
-                    style={{
-                      background:
-                        "radial-gradient(350px circle at var(--x) var(--y), rgba(165,180,252,0.26), transparent 62%)"
-                    }}
-                  />
-                  <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-violet-400/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-indigo-200/50 blur-2xl" />
-                  <span className="relative inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-indigo-200 bg-indigo-50 text-indigo-700 shadow-lg shadow-indigo-100">
-                    <Icon className="h-5 w-5" />
-                  </span>
-                  <h3 className="relative mt-6 text-2xl font-semibold text-slate-900">
-                    <LiquidText>{technology.title}</LiquidText>
-                  </h3>
-                  <p className="relative mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
-                    <LiquidText className="block w-full">{technology.description}</LiquidText>
-                  </p>
+                  <div className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-7 backdrop-blur-md shadow-[0_10px_40px_rgba(15,23,42,0.08)]">
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
+                      style={{
+                        background:
+                          "radial-gradient(350px circle at var(--x) var(--y), rgba(165,180,252,0.26), transparent 62%)"
+                      }}
+                    />
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-violet-400/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-indigo-200/50 blur-2xl" />
+                    <span className="relative inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-indigo-200 bg-indigo-50 text-indigo-700 shadow-lg shadow-indigo-100">
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <h3 className="relative mt-6 text-2xl font-semibold text-slate-900">
+                      <LiquidText>{technology.title}</LiquidText>
+                    </h3>
+                    <p className="relative mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">
+                      <LiquidText className="block w-full">{technology.description}</LiquidText>
+                    </p>
+                  </div>
                 </motion.div>
               );
             })}
@@ -266,43 +257,33 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.68, delay: index * 0.07, ease: transitionEase }}
-                    whileHover={
-                      prefersReducedMotion
-                        ? undefined
-                        : {
-                            y: -4,
-                            transition: {
-                              type: "tween",
-                              duration: 0.25,
-                              ease: "easeOut"
-                            }
-                          }
-                    }
-                    className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-6 backdrop-blur-md shadow-[0_8px_30px_rgba(15,23,42,0.06)] transition-[transform,box-shadow,opacity] duration-300 ease-out hover:shadow-[0_12px_35px_rgba(99,102,241,0.12)]"
+                    whileHover={prefersReducedMotion ? undefined : { y: -4 }}
                     style={{ "--x": "50%", "--y": "50%", willChange: "transform, opacity" } as CSSProperties}
                     onMouseMove={(event) => {
                       const rect = event.currentTarget.getBoundingClientRect();
                       const x = event.clientX - rect.left;
                       const y = event.clientY - rect.top;
-                    event.currentTarget.style.setProperty("--x", `${x}px`);
-                    event.currentTarget.style.setProperty("--y", `${y}px`);
-                  }}
-                >
-                  <div
-                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
-                    style={{
-                        background:
-                          "radial-gradient(350px circle at var(--x) var(--y), rgba(165,180,252,0.24), transparent 62%)"
-                      }}
-                    />
-                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-violet-400/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                    <Icon className="h-6 w-6 text-indigo-700" />
-                    <h3 className="mt-5 text-xl font-semibold text-slate-900">
-                      <LiquidText>{industry.title}</LiquidText>
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                      <LiquidText className="block w-full">{industry.description}</LiquidText>
-                    </p>
+                      event.currentTarget.style.setProperty("--x", `${x}px`);
+                      event.currentTarget.style.setProperty("--y", `${y}px`);
+                    }}
+                  >
+                    <div className="group relative overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-6 backdrop-blur-md shadow-[0_8px_30px_rgba(15,23,42,0.06)]">
+                      <div
+                        className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300"
+                        style={{
+                          background:
+                            "radial-gradient(350px circle at var(--x) var(--y), rgba(165,180,252,0.24), transparent 62%)"
+                        }}
+                      />
+                      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-violet-400/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      <Icon className="h-6 w-6 text-indigo-700" />
+                      <h3 className="mt-5 text-xl font-semibold text-slate-900">
+                        <LiquidText>{industry.title}</LiquidText>
+                      </h3>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                        <LiquidText className="block w-full">{industry.description}</LiquidText>
+                      </p>
+                    </div>
                   </motion.div>
                 );
               })}
